@@ -16,6 +16,8 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import LoginIcon from "@mui/icons-material/Login";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useNavigate } from "react-router";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -56,7 +58,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({ login, handleLogin }) {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -168,10 +171,19 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography
+            onClick={() => {
+              navigate("/");
+            }}
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{
+              display: { xs: "none", sm: "block" },
+              cursor: "pointer", // Con chuột sẽ thay đổi thành "pointer"
+              "&:hover": {
+                color: "darkorange", // Thay đổi màu chữ khi hover (nếu muốn)
+              },
+            }}
           >
             JOB ROUTING
           </Typography>
@@ -185,16 +197,56 @@ export default function SearchAppBar() {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              alignItems: "center",
-              gap: "8px",
-            }}
-          >
-            <LoginIcon />
-            <p>Sign in</p>
-          </Box>
+          {!login ? (
+            <Box
+              onClick={() => {
+                navigate("/login");
+              }}
+              sx={{
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: "8px",
+
+                cursor: "pointer", // Con chuột sẽ thay đổi thành "pointer"
+                "&:hover": {
+                  color: "darkorange", // Thay đổi màu chữ khi hover (nếu muốn)
+                },
+              }}
+            >
+              <LoginIcon />
+              <p>Sign in</p>
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                display: { xs: "none", md: "flex" },
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <AccountCircleIcon
+                sx={{
+                  cursor: "pointer", // Con chuột sẽ thay đổi thành "pointer"
+                  "&:hover": {
+                    color: "darkorange", // Thay đổi màu chữ khi hover (nếu muốn)
+                  },
+                }}
+              />
+              <p
+                style={{
+                  cursor: "pointer", // Con chuột sẽ thay đổi thành "pointer"
+                  "&:hover": {
+                    color: "darkorange", // Thay đổi màu chữ khi hover (nếu muốn)
+                  },
+                }}
+                onClick={() => {
+                  handleLogin();
+                }}
+              >
+                Log Out
+              </p>
+            </Box>
+          )}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

@@ -5,8 +5,10 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Chip } from "@mui/material";
+import { useNavigate } from "react-router";
 
 export default function BasicCard({ data }) {
+  const navigate = useNavigate();
   return (
     <Card sx={{ height: "100%", width: "100%" }}>
       <CardContent>
@@ -43,6 +45,9 @@ export default function BasicCard({ data }) {
               backgroundColor: "darkorange", // Màu nền khi hover
               color: "white", // Chữ đổi màu khi hover
             },
+          }}
+          onClick={() => {
+            navigate(`/${data.id}`);
           }}
         >
           Learn More
