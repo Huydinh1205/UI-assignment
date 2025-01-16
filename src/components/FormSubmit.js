@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router";
-import { Form } from "react-router-dom";
 import Infor from "./Infor";
 function FormSubmit({ handleLogin }) {
   let lst = ["email", "password", "username"];
